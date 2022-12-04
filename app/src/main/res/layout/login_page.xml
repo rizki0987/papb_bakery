@@ -7,7 +7,7 @@
     android:background="@color/loginbg">
 
 
-    <ImageButton
+    <ImageView
         android:id="@+id/imageButton"
         android:layout_width="32dp"
         android:layout_height="31dp"
@@ -17,7 +17,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.022"
-        app:srcCompat="@drawable/back_button" />
+        app:srcCompat="@drawable/back_button"
+        tools:layout_editor_absoluteX="34dp"
+        tools:layout_editor_absoluteY="95dp" />
 
     <TextView
         android:id="@+id/textView"
