@@ -33,6 +33,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="318dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="128dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:srcCompat="@drawable/bg_bordered" />
+
     <Button
         android:id="@+id/button4"
         android:layout_width="318dp"
@@ -49,5 +60,6 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView"
         app:strokeColor="@color/botton_color"
         app:strokeWidth="2222dp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
