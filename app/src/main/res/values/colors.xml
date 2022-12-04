@@ -12,4 +12,6 @@
     <color name="white_text">#FAFAFA</color>
     <color name="dark_text">#282828</color>
     <color name="transparant_text1">#A2708A</color>
+    <color name="text_holder">#4E4E4E</color>
+    <color name="grey1">#999999</color>
 </resources>
