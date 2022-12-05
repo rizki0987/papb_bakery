@@ -61,7 +61,4 @@ public class menu {
         return kategori;
     }
 
-    public void setKategori(String kategori) {
-        this.kategori = kategori;
-    }
 }
