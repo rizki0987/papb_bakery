@@ -5,10 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 public class ItemDescActivity extends AppCompatActivity {
     private Button AddtoCartbtn;
-    private String nama, harga, desc, jumlahItem;
+    private TextView nama, harga, desc, jumlahItem;
     private ImageView tambah, kurang, gambar;
 
     @Override
