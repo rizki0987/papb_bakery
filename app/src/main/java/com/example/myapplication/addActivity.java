@@ -48,12 +48,10 @@ public class addActivity extends AppCompatActivity implements View.OnClickListen
             menu Menu = new menu();
             Menu.setId_jenis(1);
             Menu.setNama(nama.getText().toString());
-            Log.d("insert", "onClick: " + Menu.getNama());
             Menu.setHarga(Integer.parseInt(harga.getText().toString()));
             Menu.setStok(Integer.parseInt(stok.getText().toString()));
-            Log.d("insert", "onClick: " + Menu.getHarga());
+            Menu.setDeskripsi(deskripsi.getText().toString());
             menuService menuService = RetrofitClient.getClient("").create(menuService.class);
-            Log.d("insert", "onClick: " + Menu.getNama());
             Call<apiResponse> request = menuService.addMenu(Menu);
             request.enqueue(new Callback<apiResponse>() {
                 @Override
