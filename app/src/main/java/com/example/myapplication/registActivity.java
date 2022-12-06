@@ -24,8 +24,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class registActivity extends AppCompatActivity implements View.OnClickListener {
-    private Button regist, loginHere;
-    private TextView nama, email, password, confirmpws;
+    private Button regist;
+    private TextView nama, email, password, confirmpws, loginHere;
     private ImageView backToRegist;
     private FirebaseAuth mAuth;
 
@@ -35,7 +35,16 @@ public class registActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.register_page);
         mAuth = FirebaseAuth.getInstance();
         initView();
+    }
 
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if(user != null && user.isEmailVerified()) {
+            Intent home = new Intent(this, homeActivity.class);
+            startActivity(home);
+        }
     }
 
     private void initView(){
@@ -44,6 +53,7 @@ public class registActivity extends AppCompatActivity implements View.OnClickLis
         regist = findViewById(R.id.button2);
         regist.setOnClickListener(this);
         loginHere = findViewById(R.id.button);
+        loginHere.setOnClickListener(this);
         nama = findViewById(R.id.editTextTextEmailAddress2);
         email = findViewById(R.id.editTextTextEmailAddress);
         password = findViewById(R.id.editTextTextEmailAddress3);
@@ -51,7 +61,6 @@ public class registActivity extends AppCompatActivity implements View.OnClickLis
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if(user != null && user.isEmailVerified()) {
             Intent home = new Intent(this, homeActivity.class);
-            home.putExtra("email", user.getEmail());
             startActivity(home);
         }
     }
@@ -119,7 +128,6 @@ public class registActivity extends AppCompatActivity implements View.OnClickLis
                                         });
                                         if(user.isEmailVerified()) {
                                             Intent home = new Intent(registActivity.this, homeActivity.class);
-                                            home.putExtra("email", email);
                                             startActivity(home);
                                         }
                                     }
@@ -127,6 +135,10 @@ public class registActivity extends AppCompatActivity implements View.OnClickLis
                             }
                         });
             }
+        } else if (view.getId() == R.id.button){
+            this.finish();
+            Intent intent = new Intent(this, loginActivity.class);
+            startActivity(intent);
         }
     }
 }

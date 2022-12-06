@@ -27,7 +27,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if(user != null && user.isEmailVerified()) {
             Intent home = new Intent(this, homeActivity.class);
-            home.putExtra("email", user.getEmail());
             startActivity(home);
         }
     }

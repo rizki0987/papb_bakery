@@ -9,6 +9,12 @@ public class menu {
     private String deskripsi;
     private String kategori;
 
+    private int id_user;
+    private String uid;
+    private String email;
+    private String username;
+    private int is_admin;
+
     public int getId_menu() {
         return id_menu;
     }
@@ -61,4 +67,11 @@ public class menu {
         return kategori;
     }
 
+    public void setId_user(int id_user) {
+        this.id_user = id_user;
+    }
+
+    public String getUsername() {
+        return username;
+    }
 }

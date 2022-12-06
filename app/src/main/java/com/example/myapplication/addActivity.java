@@ -11,6 +11,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -45,26 +48,49 @@ public class addActivity extends AppCompatActivity implements View.OnClickListen
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.Confirm){
-            menu Menu = new menu();
-            Menu.setId_jenis(1);
-            Menu.setNama(nama.getText().toString());
-            Menu.setHarga(Integer.parseInt(harga.getText().toString()));
-            Menu.setStok(Integer.parseInt(stok.getText().toString()));
-            Menu.setDeskripsi(deskripsi.getText().toString());
-            menuService menuService = RetrofitClient.getClient("").create(menuService.class);
-            Call<apiResponse> request = menuService.addMenu(Menu);
-            request.enqueue(new Callback<apiResponse>() {
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            String uid = user.getUid();
+            userService userService = RetrofitClient.getClient("").create(userService.class);
+            Call<user> request = userService.getId(uid);
+            request.enqueue(new Callback<user>() {
                 @Override
-                public void onResponse(Call<apiResponse> call, Response<apiResponse> response) {
+                public void onResponse(Call<user> call, Response<user> response) {
                     if (response.isSuccessful()) {
-                        apiResponse res = response.body();
-                        Toast.makeText(addActivity.this, res.getData(), Toast.LENGTH_SHORT).show();
-                        new Timer().scheduleAtFixedRate(new TimerTask() {
+                        menu Menu = new menu();
+                        Menu.setId_jenis(1);
+                        Menu.setNama(nama.getText().toString());
+                        Menu.setHarga(Integer.parseInt(harga.getText().toString()));
+                        Menu.setStok(Integer.parseInt(stok.getText().toString()));
+                        Menu.setDeskripsi(deskripsi.getText().toString());
+                        Menu.setId_user(response.body().getId_user());
+                        menuService menuService = RetrofitClient.getClient("").create(menuService.class);
+                        Call<apiResponse> request = menuService.addMenu(Menu);
+                        request.enqueue(new Callback<apiResponse>() {
                             @Override
-                            public void run() {
-                                addActivity.this.finish();
+                            public void onResponse(Call<apiResponse> call, Response<apiResponse> response) {
+                                if (response.isSuccessful()) {
+                                    apiResponse res = response.body();
+                                    Toast.makeText(addActivity.this, res.getData(), Toast.LENGTH_SHORT).show();
+                                    new Timer().scheduleAtFixedRate(new TimerTask() {
+                                        @Override
+                                        public void run() {
+                                            addActivity.this.finish();
+                                        }
+                                    }, 500, 500);
+                                } else {
+                                    String error = apiResponse.readError(response.errorBody());
+                                    Log.d("errt", "" + error);
+                                    Toast.makeText(addActivity.this, error, Toast.LENGTH_SHORT).show();
+                                }
                             }
-                        }, 500, 500);
+
+                            @Override
+                            public void onFailure(Call<apiResponse> call, Throwable t) {
+                                Log.d("DataModel", "" + t.getMessage());
+                                Toast.makeText(getApplicationContext(), "Error " + t.getMessage(), Toast.LENGTH_LONG).show();
+                            }
+                        });
+
                     } else {
                         String error = apiResponse.readError(response.errorBody());
                         Log.d("errt", "" + error);
@@ -73,7 +99,7 @@ public class addActivity extends AppCompatActivity implements View.OnClickListen
                 }
 
                 @Override
-                public void onFailure(Call<apiResponse> call, Throwable t) {
+                public void onFailure(Call<user> call, Throwable t) {
                     Log.d("DataModel", "" + t.getMessage());
                     Toast.makeText(getApplicationContext(), "Error " + t.getMessage(), Toast.LENGTH_LONG).show();
                 }

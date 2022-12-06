@@ -21,4 +21,7 @@ public interface userService {
 
     @DELETE("user/{id}")
     Call<apiResponse> deleteUser(@Path("id") int id);
+
+    @GET("user/id/{uid}")
+    Call<user> getId(@Path("uid") String uid);
 }

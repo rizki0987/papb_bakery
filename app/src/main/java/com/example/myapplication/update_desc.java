@@ -10,6 +10,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -38,6 +41,8 @@ public class update_desc extends AppCompatActivity implements View.OnClickListen
         update = findViewById(R.id.Confirm);
         update.setOnClickListener(this);
         menus = new ArrayList<menu>();
+
+
 
         menuService menuService = RetrofitClient.getClient("").create(menuService.class);
         Call<List<menu>> request = menuService.detailMenu(getIntent().getIntExtra("id_menu", 0));
@@ -68,26 +73,47 @@ public class update_desc extends AppCompatActivity implements View.OnClickListen
     @Override
     public void onClick(View view) {
         if(view.getId() == R.id.Confirm){
-            menuService menuService = RetrofitClient.getClient("").create(menuService.class);
-            menu Menu = new menu();
-            Menu.setNama(nama.getText().toString());
-            Menu.setHarga(Integer.parseInt(harga.getText().toString()));
-            Menu.setStok(Integer.parseInt(jumlah.getText().toString()));
-            Menu.setDeskripsi(deskripsi.getText().toString());
-            Menu.setId_jenis(menus.get(0).getId_jenis());
-            Call<apiResponse> request = menuService.updateMenu(getIntent().getIntExtra("id_menu", 0), Menu);
-            request.enqueue(new Callback<apiResponse>() {
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            userService userService = RetrofitClient.getClient("").create(userService.class);
+            Call<user> req = userService.getId(user.getUid());
+            req.enqueue(new Callback<user>() {
                 @Override
-                public void onResponse(Call<apiResponse> call, Response<apiResponse> response) {
+                public void onResponse(Call<user> call, Response<user> response) {
                     if (response.isSuccessful()) {
-                        apiResponse res = response.body();
-                        Toast.makeText(update_desc.this, res.getData(), Toast.LENGTH_SHORT).show();
-                        new Timer().scheduleAtFixedRate(new TimerTask() {
+                        menuService menuService = RetrofitClient.getClient("").create(menuService.class);
+                        menu Menu = new menu();
+                        Menu.setNama(nama.getText().toString());
+                        Menu.setHarga(Integer.parseInt(harga.getText().toString()));
+                        Menu.setStok(Integer.parseInt(jumlah.getText().toString()));
+                        Menu.setDeskripsi(deskripsi.getText().toString());
+                        Menu.setId_jenis(menus.get(0).getId_jenis());
+                        Menu.setId_user(response.body().getId_user());
+                        Call<apiResponse> request = menuService.updateMenu(getIntent().getIntExtra("id_menu", 0), Menu);
+                        request.enqueue(new Callback<apiResponse>() {
                             @Override
-                            public void run() {
-                                update_desc.this.finish();
+                            public void onResponse(Call<apiResponse> call, Response<apiResponse> response) {
+                                if (response.isSuccessful()) {
+                                    apiResponse res = response.body();
+                                    Toast.makeText(update_desc.this, res.getData(), Toast.LENGTH_SHORT).show();
+                                    new Timer().scheduleAtFixedRate(new TimerTask() {
+                                        @Override
+                                        public void run() {
+                                            update_desc.this.finish();
+                                        }
+                                    }, 500, 500);
+                                } else {
+                                    String error = apiResponse.readError(response.errorBody());
+                                    Log.d("errt", "" + error);
+                                    Toast.makeText(update_desc.this, error, Toast.LENGTH_SHORT).show();
+                                }
                             }
-                        }, 500, 500);
+
+                            @Override
+                            public void onFailure(Call<apiResponse> call, Throwable t) {
+                                Log.d("DataModel", "" + t.getMessage());
+                                Toast.makeText(getApplicationContext(), "Error " + t.getMessage(), Toast.LENGTH_LONG).show();
+                            }
+                        });
                     } else {
                         String error = apiResponse.readError(response.errorBody());
                         Log.d("errt", "" + error);
@@ -96,7 +122,7 @@ public class update_desc extends AppCompatActivity implements View.OnClickListen
                 }
 
                 @Override
-                public void onFailure(Call<apiResponse> call, Throwable t) {
+                public void onFailure(Call<user> call, Throwable t) {
                     Log.d("DataModel", "" + t.getMessage());
                     Toast.makeText(getApplicationContext(), "Error " + t.getMessage(), Toast.LENGTH_LONG).show();
                 }

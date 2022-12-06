@@ -24,6 +24,7 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
     ImageView back;
     Button login;
     EditText email, password;
+    TextView regis;
     private FirebaseAuth mAuth;
 
     @Override
@@ -34,17 +35,27 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
         back.setOnClickListener(this);
         login = findViewById(R.id.button2);
         login.setOnClickListener(this);
+        regis = findViewById(R.id.button);
+        regis.setOnClickListener(this);
         mAuth = FirebaseAuth.getInstance();
         email = findViewById(R.id.editTextTextEmailAddress);
         password = findViewById(R.id.editTextTextPassword);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if(user != null && user.isEmailVerified()) {
             Intent home = new Intent(this, homeActivity.class);
-            home.putExtra("email", user.getEmail());
             startActivity(home);
         }
     }
 
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if(user != null && user.isEmailVerified()) {
+            Intent home = new Intent(this, homeActivity.class);
+            startActivity(home);
+        }
+    }
 
     @Override
     public void onClick(View view) {
@@ -54,7 +65,6 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
             mAuth.fetchSignInMethodsForEmail(email.getText().toString()).addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
                 @Override
                 public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
-//                    Log.d("fbAuth", "" + task.getResult().getSignInMethods().size());
                     if (task.getResult().getSignInMethods().size() == 0) {
                         Toast.makeText(loginActivity.this, "This email has not been registered", Toast.LENGTH_SHORT).show();
                     }else{
@@ -65,7 +75,6 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
                                         if (user != null) {
                                             if(user.isEmailVerified()) {
                                                 Intent home = new Intent(loginActivity.this, homeActivity.class);
-                                                home.putExtra("email", email.getText().toString());
                                                 startActivity(home);
                                             } else {
                                                 Toast.makeText(loginActivity.this, "not verified", Toast.LENGTH_LONG).show();
@@ -78,6 +87,10 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
                     }
                 }
             });
+        } else if (view.getId() == R.id.button) {
+            this.finish();
+            Intent intent = new Intent(this, registActivity.class);
+            startActivity(intent);
         }
     }
 }
