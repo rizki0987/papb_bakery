@@ -164,30 +164,31 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/button"
-        android:layout_width="91dp"
-        android:layout_height="18dp"
-        android:textAlignment="center"
-        android:text="Login here"
-        android:textAllCaps="false"
-        android:textColor="@color/transparant_text1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toEndOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/imageView6" />
-
-    <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Have an account?"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.231"
+        app:layout_constraintHorizontal_bias="0.232"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView6"
-        app:layout_constraintVertical_bias="0.502" />
+        app:layout_constraintVertical_bias="0.548" />
+
+    <TextView
+        android:id="@+id/button"
+        android:layout_width="91dp"
+        android:layout_height="18dp"
+        android:text="Login here"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/transparant_text1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/imageView6"
+        app:layout_constraintVertical_bias="0.546" />
 
     <ImageView
         android:id="@+id/imageView7"
