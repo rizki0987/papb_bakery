@@ -33,6 +33,7 @@ public class homeActivity extends AppCompatActivity implements View.OnClickListe
         ImageView btn = findViewById(R.id.imageView16);
         btn.setOnClickListener(this);
         rvMenu = findViewById(R.id.rvMenu);
+        rvMenu.setNestedScrollingEnabled(false);
         menuService menuService = RetrofitClient.getClient("").create(menuService.class);
         Call<List<menu>> request = menuService.listMenu();
         request.enqueue(new Callback<List<menu>>() {
@@ -45,6 +46,8 @@ public class homeActivity extends AppCompatActivity implements View.OnClickListe
                         @Override
                         public void onItemClick(menu Menu) {
                             intent = new Intent(homeActivity.this, ItemDescActivity.class);
+                            intent.putExtra("id_menu", Menu.getId_menu());
+//                            Log.d("id_menu", "onItemClick: " + Menu.getId_menu());
                             startActivity(intent);
                         }
                     });
