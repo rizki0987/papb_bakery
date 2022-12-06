@@ -33,10 +33,14 @@ public class menuAdapter extends RecyclerView.Adapter<menuAdapter.menuViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull menuViewHolder holder, int position) {
-        menu Menu = new menu();
+        menu Menu = menuList.get(position);
         holder.nama.setText(Menu.getNama());
-        holder.stok.setText(Menu.getStok());
-        holder.harga.setText(Menu.getHarga());
+        holder.stok.setText(String.valueOf(Menu.getStok()));
+        holder.harga.setText(String.valueOf(Menu.getHarga()));
+
+        holder.itemView.setOnClickListener(view -> {
+            mItemListener.onItemClick(menuList.get(position));
+        });
     }
 
     @Override

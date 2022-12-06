@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -31,6 +32,7 @@ public class homeActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.homepage);
         ImageView btn = findViewById(R.id.imageView16);
         btn.setOnClickListener(this);
+        rvMenu = findViewById(R.id.rvMenu);
         menuService menuService = RetrofitClient.getClient("").create(menuService.class);
         Call<List<menu>> request = menuService.listMenu();
         request.enqueue(new Callback<List<menu>>() {
@@ -38,15 +40,16 @@ public class homeActivity extends AppCompatActivity implements View.OnClickListe
             public void onResponse(Call<List<menu>> call, Response<List<menu>> response) {
                 if(response.isSuccessful()){
                     List<menu> list = response.body();
-//                    Log.d("success", "list " + list.getData());
+                    Log.d("success", "list " + list.size());
                     adapter = new menuAdapter(homeActivity.this, list, new menuAdapter.ItemClickListener() {
                         @Override
                         public void onItemClick(menu Menu) {
                             intent = new Intent(homeActivity.this, ItemDescActivity.class);
-                            intent.putExtra("id_menu", Menu.getId_menu());
                             startActivity(intent);
                         }
                     });
+                    rvMenu.setAdapter(adapter);
+                    rvMenu.setLayoutManager(new LinearLayoutManager(homeActivity.this));
                 }else {
                     String error = apiResponse.readError(response.errorBody());
                     Log.d("errt", "" + error);
