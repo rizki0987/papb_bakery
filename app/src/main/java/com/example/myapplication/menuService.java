@@ -16,7 +16,7 @@ public interface menuService {
     Call<List<menu>> listMenu();
 
     @GET("menu/{id}")
-    Call<menu> detailMenu(@Path("id") int id);
+    Call<List<menu>> detailMenu(@Path("id") int id);
 
     @POST("menu")
     Call<apiResponse> addMenu(@Body menu Menu);
