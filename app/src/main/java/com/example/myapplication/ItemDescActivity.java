@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -18,10 +19,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ItemDescActivity extends AppCompatActivity {
-    private Button AddtoCartbtn;
+public class ItemDescActivity extends AppCompatActivity implements View.OnClickListener {
+    private Button updateMenubtn;
     private TextView nama, harga, desc, jumlahItem;
     private ImageView tambah, kurang, gambar;
+    Intent intent;
+    menu Menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,17 +36,14 @@ public class ItemDescActivity extends AppCompatActivity {
 
     private void getItem() {
         menuService menuService = RetrofitClient.getClient("").create(menuService.class);
-//        Log.d("id_menu_item", "getItem: "+ getIntent().getIntExtra("id_menu", 0));
         Call<List<menu>> request = menuService.detailMenu(getIntent().getIntExtra("id_menu", 0));
         request.enqueue(new Callback<List<menu>>() {
             @Override
             public void onResponse(Call<List<menu>> call, Response<List<menu>> response) {
                 if (response.isSuccessful()) {
-                    List menuList = response.body();
                     ArrayList<menu> menus = new ArrayList<menu>();
-                    menus.addAll(menuList);
-                    menu Menu = menus.get(0);
-                    Log.d("item", "onResponse: " + Menu.getNama());
+                    menus.addAll(response.body());
+                    Menu = menus.get(0);
                     nama.setText(Menu.getNama());
                     harga.setText(String.valueOf(Menu.getHarga()));
                     jumlahItem.setText(String.valueOf(Menu.getStok()));
@@ -63,14 +63,23 @@ public class ItemDescActivity extends AppCompatActivity {
     }
 
     private void initView(){
-        AddtoCartbtn = findViewById(R.id.AddToCartButton);
+        updateMenubtn = findViewById(R.id.AddToCartButton);
+        updateMenubtn.setOnClickListener(this);
         nama = findViewById(R.id.NamaItem);
         harga = findViewById(R.id.HargaItem);
         desc = findViewById(R.id.DeskripsiItem);
         jumlahItem = findViewById(R.id.JumlahItem);
-        tambah = findViewById(R.id.TambahJumlahItem);
-        kurang = findViewById(R.id.KurangJumlahItem);
+//        tambah = findViewById(R.id.TambahJumlahItem);
+//        kurang = findViewById(R.id.KurangJumlahItem);
         gambar = findViewById(R.id.GambarItem);
     }
 
+    @Override
+    public void onClick(View view) {
+        if(view.getId() == R.id.AddToCartButton){
+            intent = new Intent(this, update_desc.class);
+            intent.putExtra("id_menu", Menu.getId_menu());
+            startActivity(intent);
+        }
+    }
 }
