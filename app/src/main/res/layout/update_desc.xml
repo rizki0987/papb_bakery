@@ -18,9 +18,10 @@
         android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/HargaItem"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        tools:layout_editor_absoluteX="0dp" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <EditText
         android:id="@+id/HargaItem"
@@ -46,8 +47,12 @@
         android:text="Rp"
         android:textColor="@color/black"
         android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/HargaItem"
-        tools:layout_editor_absoluteY="61dp" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.086" />
 
     <TextView
         android:id="@+id/textView13"
@@ -56,26 +61,35 @@
         android:text=",-"
         android:textColor="@color/black"
         android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/HargaItem"
-        tools:layout_editor_absoluteY="61dp" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.086" />
 
     <ImageView
         android:id="@+id/GambarItem"
         android:layout_width="wrap_content"
         android:layout_height="325dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/HargaItem"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/carrot"
-        tools:layout_editor_absoluteX="0dp" />
+        app:srcCompat="@drawable/carrot" />
 
     <ImageView
         android:id="@+id/KurangJumlahItem"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/JumlahItem"
         app:layout_constraintTop_toBottomOf="@+id/GambarItem"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/minus" />
 
     <TextView
@@ -87,16 +101,23 @@
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
-        tools:layout_editor_absoluteX="200dp"
-        tools:layout_editor_absoluteY="424dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.602" />
 
     <ImageView
         android:id="@+id/TambahJumlahItem"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/JumlahItem"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/GambarItem"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/plus" />
 
     <EditText
