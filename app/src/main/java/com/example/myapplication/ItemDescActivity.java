@@ -110,7 +110,7 @@ public class ItemDescActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View view) {
-        if(view.getId() == R.id.Confirm){
+        if(view.getId() == R.id.confirm){
             intent = new Intent(this, update_desc.class);
             intent.putExtra("id_menu", Menu.getId_menu());
             startActivity(intent);
