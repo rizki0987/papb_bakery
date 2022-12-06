@@ -16,22 +16,24 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
+            <EditText
                 android:id="@+id/NamaItem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="45dp"
-                android:text="Carrot Cake"
+                android:hint="Masukkan Nama"
+                android:background="@null"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="25sp"
                 android:textStyle="bold" />
 
-            <TextView
+            <EditText
                 android:id="@+id/HargaItem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Rp.120.000,-"
+                android:background="@null"
+                android:hint="Masukkan Harga"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
@@ -50,6 +52,12 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
+                <ImageView
+                    android:id="@+id/KurangJumlahItem"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    app:srcCompat="@drawable/minus" />
+
                 <TextView
                     android:id="@+id/JumlahItem"
                     android:layout_width="wrap_content"
@@ -62,14 +70,20 @@
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
+                <ImageView
+                    android:id="@+id/TambahJumlahItem"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    app:srcCompat="@drawable/plus" />
             </LinearLayout>
 
-            <TextView
+            <EditText
                 android:id="@+id/DeskripsiItem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:text="This cake taste like a spice cake topped off with cream cheese. The caramelized brown sugar gives a sweet taste, cream cheese gives a salty and creamy profile, and spices such as cinnamon, nutmeg, cloves provide a richer taste. You’ll definitely love it!"
+                android:background="@null"
+                android:hint="Masukkan deskripsi menu"
                 android:textColor="@color/black"
                 android:textSize="15dp"
                 android:textStyle="bold" />
@@ -77,11 +91,11 @@
     </ScrollView>
 
     <Button
-        android:id="@+id/AddToCartButton"
+        android:id="@+id/Confirm"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_margin="90dp"
-        android:text="Edit Menu"
+        android:text="ADD"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/scrollView2"
         app:layout_constraintEnd_toEndOf="parent"
