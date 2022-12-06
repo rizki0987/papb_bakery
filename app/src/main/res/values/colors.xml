@@ -16,4 +16,5 @@
     <color name="grey1">#999999</color>
     <color name="bg_home">#FAFAFA</color>
     <color name="transparan_text2">#D7DDDE</color>
+    <color name="red">#FF0800</color>
 </resources>
