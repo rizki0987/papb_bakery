@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -23,6 +25,7 @@ public class update_desc extends AppCompatActivity implements View.OnClickListen
     EditText nama, harga, deskripsi;
     TextView jumlah;
     Button update;
+    ArrayList<menu> menus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +37,7 @@ public class update_desc extends AppCompatActivity implements View.OnClickListen
         deskripsi = findViewById(R.id.DeskripsiItem);
         update = findViewById(R.id.Confirm);
         update.setOnClickListener(this);
+        menus = new ArrayList<menu>();
 
         menuService menuService = RetrofitClient.getClient("").create(menuService.class);
         Call<List<menu>> request = menuService.detailMenu(getIntent().getIntExtra("id_menu", 0));
@@ -41,7 +45,6 @@ public class update_desc extends AppCompatActivity implements View.OnClickListen
             @Override
             public void onResponse(Call<List<menu>> call, Response<List<menu>> response) {
                 if (response.isSuccessful()) {
-                    ArrayList<menu> menus = new ArrayList<menu>();
                     menus.addAll(response.body());
                     Menu = menus.get(0);
                     nama.setText(Menu.getNama());
@@ -65,7 +68,39 @@ public class update_desc extends AppCompatActivity implements View.OnClickListen
     @Override
     public void onClick(View view) {
         if(view.getId() == R.id.Confirm){
+            menuService menuService = RetrofitClient.getClient("").create(menuService.class);
+            menu Menu = new menu();
+            Menu.setNama(nama.getText().toString());
+            Menu.setHarga(Integer.parseInt(harga.getText().toString()));
+            Menu.setStok(Integer.parseInt(jumlah.getText().toString()));
+            Menu.setDeskripsi(deskripsi.getText().toString());
+            Menu.setId_jenis(menus.get(0).getId_jenis());
+            Call<apiResponse> request = menuService.updateMenu(getIntent().getIntExtra("id_menu", 0), Menu);
+            request.enqueue(new Callback<apiResponse>() {
+                @Override
+                public void onResponse(Call<apiResponse> call, Response<apiResponse> response) {
+                    if (response.isSuccessful()) {
+                        apiResponse res = response.body();
+                        Toast.makeText(update_desc.this, res.getData(), Toast.LENGTH_SHORT).show();
+                        new Timer().scheduleAtFixedRate(new TimerTask() {
+                            @Override
+                            public void run() {
+                                update_desc.this.finish();
+                            }
+                        }, 500, 500);
+                    } else {
+                        String error = apiResponse.readError(response.errorBody());
+                        Log.d("errt", "" + error);
+                        Toast.makeText(update_desc.this, error, Toast.LENGTH_SHORT).show();
+                    }
+                }
 
+                @Override
+                public void onFailure(Call<apiResponse> call, Throwable t) {
+                    Log.d("DataModel", "" + t.getMessage());
+                    Toast.makeText(getApplicationContext(), "Error " + t.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
         }
     }
 }

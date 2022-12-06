@@ -22,7 +22,7 @@ public interface menuService {
     Call<apiResponse> addMenu(@Body menu Menu);
 
     @PUT("menu/{id}")
-    Call<apiResponse> updateMenu(@Body menu Menu);
+    Call<apiResponse> updateMenu(@Path("id") int id, @Body menu Menu);
 
     @DELETE("menu/{id}")
     Call<apiResponse> deleteMenu(@Path("id") int id);
