@@ -16,9 +16,6 @@ public interface userService {
     @GET("user/{id}")
     Call<user> detailUser(@Path("id") int id);
 
-    @POST("user/login")
-    Call<apiResponse> login(@Body user User);
-
     @POST("user")
     Call<apiResponse> register(@Body user User);
 

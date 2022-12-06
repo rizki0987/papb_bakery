@@ -2,11 +2,10 @@ package com.example.myapplication;
 
 public class user {
     private int id_user;
+    private String uid;
     private String email;
-    private String password;
     private String username;
     private int is_admin;
-    private int active;
 
     public int getId_user() {
         return id_user;
@@ -16,20 +15,20 @@ public class user {
         this.id_user = id_user;
     }
 
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getUsername() {
@@ -48,11 +47,4 @@ public class user {
         this.is_admin = is_admin;
     }
 
-    public int getActive() {
-        return active;
-    }
-
-    public void setActive(int active) {
-        this.active = active;
-    }
 }

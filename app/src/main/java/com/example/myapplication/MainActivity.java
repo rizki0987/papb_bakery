@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button login, register;
@@ -20,6 +23,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         register = findViewById(R.id.button4);
         login.setOnClickListener(this);
         register.setOnClickListener(this);
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if(user != null && user.isEmailVerified()) {
+            Intent home = new Intent(this, homeActivity.class);
+            home.putExtra("email", user.getEmail());
+            startActivity(home);
+        }
     }
 
     @Override

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "193165304181",
+    "project_id": "charlotte-bakery",
+    "storage_bucket": "charlotte-bakery.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:193165304181:android:959a65c19515b14c57b33c",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "193165304181-ahticfiof9a5ivd76uipoooe1qigf8d0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCg1qOq7Dm6hC9XviJb0cT_3bBqruibtso"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "193165304181-ahticfiof9a5ivd76uipoooe1qigf8d0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
