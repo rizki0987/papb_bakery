@@ -126,6 +126,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:background="@null"
+        android:hint="Masukkan deskripsi menu"
         android:text="This cake taste like a spice cake topped off with cream cheese. The caramelized brown sugar gives a sweet taste, cream cheese gives a salty and creamy profile, and spices such as cinnamon, nutmeg, cloves provide a richer taste. You’ll definitely love it!"
         android:textColor="@color/black"
         android:textSize="15dp"

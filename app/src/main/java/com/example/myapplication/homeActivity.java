@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,6 +30,7 @@ public class homeActivity extends AppCompatActivity implements View.OnClickListe
     menuAdapter adapter;
     Intent intent;
     ImageView insert;
+    TextView nama;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,8 @@ public class homeActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.homepage);
         ImageView btn = findViewById(R.id.imageView16);
         btn.setOnClickListener(this);
+        nama = findViewById(R.id.textView4);
+        nama.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
         rvMenu = findViewById(R.id.rvMenu);
         rvMenu.setNestedScrollingEnabled(false);
         insert = findViewById(R.id.imageView17);

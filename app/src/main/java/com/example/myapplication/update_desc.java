@@ -42,7 +42,8 @@ public class update_desc extends AppCompatActivity implements View.OnClickListen
         update.setOnClickListener(this);
         menus = new ArrayList<menu>();
 
-
+        findViewById(R.id.TambahJumlahItem).setOnClickListener(this);
+        findViewById(R.id.KurangJumlahItem).setOnClickListener(this);
 
         menuService menuService = RetrofitClient.getClient("").create(menuService.class);
         Call<List<menu>> request = menuService.detailMenu(getIntent().getIntExtra("id_menu", 0));
@@ -127,6 +128,12 @@ public class update_desc extends AppCompatActivity implements View.OnClickListen
                     Toast.makeText(getApplicationContext(), "Error " + t.getMessage(), Toast.LENGTH_LONG).show();
                 }
             });
+        }
+        else if (view.getId() == R.id.TambahJumlahItem) {
+            jumlah.setText(String.valueOf(Integer.parseInt(jumlah.getText().toString())+1));
+        }
+        else if (view.getId() == R.id.KurangJumlahItem) {
+            jumlah.setText(String.valueOf(Integer.parseInt(jumlah.getText().toString())-1));
         }
     }
 }
